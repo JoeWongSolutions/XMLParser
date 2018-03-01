@@ -42,7 +42,7 @@ public class XMLTreeLoader {
                     stack.push(newNode);
                     
                     if (currentNode != null){
-                        currentNode.addProperty(localName, newNode);
+                        currentNode.addProperty(qName, newNode);
                     }
                     
                     currentNode = newNode;
@@ -64,7 +64,7 @@ public class XMLTreeLoader {
                 
                 @Override
                 public void characters(char ch[], int start, int length) throws SAXException {
-                    currentNode.setContent(currentNode.getContent() + String.valueOf(ch));
+                    currentNode.setContent(currentNode.getContent() + String.valueOf(ch, start, length));
                 }
                 
                 
