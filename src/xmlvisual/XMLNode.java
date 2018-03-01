@@ -17,19 +17,19 @@ public class XMLNode {
     private String name = "";
     private String content = "";
     private HashMap<String, ArrayList<XMLNode>> properties = null;
-    private Attributes attributes = null;
+    private HashMap<String, String> attributes = null;
     
     public XMLNode(){
         
     }
     
-    public XMLNode(String name, Attributes attributes){
+    public XMLNode(String name){
         this.name = name;
-        this.attributes = attributes;
+        this.attributes = new HashMap<>();
     }
     
     public XMLNode(String name, String content, HashMap<String, ArrayList<XMLNode>> properties, Attributes attributes){
-        this(name, attributes);
+        this(name);
         this.content = content;
         this.properties = properties;
     }
@@ -82,11 +82,15 @@ public class XMLNode {
         return properties;
     }
     
-    public void setAttributes(Attributes attributes){
-        this.attributes = attributes;
+    public void setAttributes(String key, String value){
+        this.attributes.put(key, value);
     }
     
-    public Attributes getAttributes(){
+    public HashMap<String,String> getAttributes(){
         return attributes;
+    }
+    
+    public int getAttributesLength(){
+        return attributes.size();
     }
 }

@@ -38,7 +38,11 @@ public class XMLTreeLoader {
                 
                 @Override
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-                    XMLNode newNode = new XMLNode(qName,attributes);
+                    XMLNode newNode = new XMLNode(qName);
+                    int attLength = attributes.getLength();
+                    for(int i = 0; i < attLength; i++){
+                        newNode.setAttributes(attributes.getQName(i), attributes.getValue(i));
+                    }
                     stack.push(newNode);
                     
                     if (currentNode != null){

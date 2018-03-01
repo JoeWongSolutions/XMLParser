@@ -42,10 +42,8 @@ public class XMLVisualUIController implements Initializable {
         if (root == null) return null;
         
         String rootAttributes = "";
-        int attLength = root.getAttributes().getLength();
-        System.out.println("Current length is: " + attLength);
-        for (int i = 0; i < attLength; i++){
-            rootAttributes += " " + root.getAttributes().getLocalName(i) + "=" + root.getAttributes().getValue(i);
+        for (Map.Entry<String,String> attribute : root.getAttributes().entrySet()){
+            rootAttributes += " " + attribute.getKey() + "=" + attribute.getValue();
         }
         TreeItem<String> treeRoot = new TreeItem<>(root.getName() + rootAttributes);
         if(root.getProperties() != null){
@@ -55,6 +53,8 @@ public class XMLVisualUIController implements Initializable {
                     treeRoot.getChildren().add(buildTree(property.getValue().get(i)));
                 }
             }
+        } else {
+            treeRoot.getChildren().add(new TreeItem<>(root.getContent()));
         }
         return treeRoot;
     }
@@ -86,7 +86,7 @@ public class XMLVisualUIController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("About");
         alert.setHeaderText("XML DOM Parser Example");
-        alert.setContentText("This application was developed by Dale Musser for CS4330 at the University of Missouri.");
+        alert.setContentText("This application was developed by Joe Wong for CS4330 at the University of Missouri.");
         
         TextArea textArea = new TextArea("This example illustrates how to parse XML using the DOM.");
         textArea.setEditable(false);
